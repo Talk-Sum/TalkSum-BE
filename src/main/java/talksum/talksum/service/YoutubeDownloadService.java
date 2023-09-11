@@ -12,6 +12,4 @@ public class YoutubeDownloadService {
     public YoutubeDownloadService(ExecuteCommandService executeCommandService) {
         this.executeCommandService = executeCommandService;
     }
-
-    private
 }
