@@ -13,7 +13,7 @@ public class DatabaseConnectionTest {
     private DataSource dataSource;
 
     @Test
-    public void testDatabaseConnection() {
+    void testDatabaseConnection() {
         Assertions.assertNotNull(dataSource);
     }
 
