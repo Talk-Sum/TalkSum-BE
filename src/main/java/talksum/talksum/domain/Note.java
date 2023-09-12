@@ -1,15 +1,14 @@
-package talksum.talksum.repository;
+package talksum.talksum.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "Note")
 public class Note {
 
     @Id
@@ -37,6 +36,15 @@ public class Note {
 
     @ManyToOne
     @JoinColumn(name = "authorId", referencedColumnName = "loginId", nullable = false)
-    private User author;
+    private Member author;
 
+
+    public Note(String title, boolean bookMark, String noteContent, Date createdDate, Date modifiedDate, Member author) {
+        this.title = title;
+        this.bookMark = bookMark;
+        this.noteContent = noteContent;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
+        this.author = author;
+    }
 }
