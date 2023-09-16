@@ -16,6 +16,8 @@ public class GPTSummaryService implements SummaryService {
 
     @Value("${summary.apikey}")
     private String ApiKey;
+    @Value("${summary.gpt.systemsetting}")
+    private String gptSetting;
 
     // 예외처리하기
     @Override
@@ -50,4 +52,10 @@ public class GPTSummaryService implements SummaryService {
         return httpRequest;
     }
 
+
+    // POST body부분
+    private String makeBody(String content) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        GPTRequestAttrs gptRequestAttrs = new GPTRequestAttrs();
+    }
 }
