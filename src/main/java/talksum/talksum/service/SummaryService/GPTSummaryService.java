@@ -23,34 +23,6 @@ public class GPTSummaryService implements SummaryService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    /*
-    public String executeSummary(String prompt) {
-        String url = "https://api.openai.com/v1/completions";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(OPEN_AI_KEY);
-
-        Map<String, Object> requestBody = new HashMap<>();
-        // 요청 질문
-        requestBody.put("prompt", prompt);
-
-        // 요청에 사용될 모델 설정
-        requestBody.put("model", "text-davinci-003");
-
-        // 완료시 생성할 최대 토큰수
-        requestBody.put("max_tokens", 1500);
-
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-
-        try {
-            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-            return response.getBody();
-        } catch (RestClientException e) {
-            throw new OpenAIException("OpenAI API 호출 중 오류가 발생하였습니다.", e);
-        }
-    }
-    */
-
 
     @Value("${OPEN_AI_KEY}")
     private String OPEN_AI_KEY;
@@ -102,15 +74,4 @@ public class GPTSummaryService implements SummaryService {
         return requestEntity;
     }
 
-
-
-    public class OpenAIException extends RestClientException {
-        public OpenAIException(String message) {
-            super(message);
-        }
-
-        public OpenAIException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
 }

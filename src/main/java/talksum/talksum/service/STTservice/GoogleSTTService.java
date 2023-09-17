@@ -11,12 +11,12 @@ import java.util.List;
 
 @Service
 public class GoogleSTTService implements STTservice{
-    @Value("${stt.dirpath}")
-    private String dirPath;
+    @Value("${AUDIO_FILE_PATH}")
+    private String AUDIO_FILE_PATH;
 
     @Override
     public String executeSTT(String fileName) throws Exception {
-        String filePath = dirPath + fileName;
+        String filePath = AUDIO_FILE_PATH + fileName;
         String transcript = "";
         try (SpeechClient speechClient = SpeechClient.create()) {
 
@@ -27,7 +27,7 @@ public class GoogleSTTService implements STTservice{
             RecognitionConfig config = RecognitionConfig.newBuilder()
                     .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
                     .setLanguageCode("en-US")
-                    .setAudioChannelCount(2) // AudioChannel 수 확인하기
+                    //.setAudioChannelCount(2) // AudioChannel 수 확인하기
                     .build();
             RecognitionAudio audio = RecognitionAudio.newBuilder()
                     .setContent(audioBytes)
