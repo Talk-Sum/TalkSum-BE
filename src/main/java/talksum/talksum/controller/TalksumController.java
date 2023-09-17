@@ -1,30 +1,146 @@
 package talksum.talksum.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import talksum.talksum.domain.Member;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import talksum.talksum.domain.dto.MemberDto;
+import lombok.extern.slf4j.Slf4j;
+import talksum.talksum.domain.entity.Member;
 import talksum.talksum.service.STTservice.STTservice;
 import talksum.talksum.service.MemberService;
 
+@Slf4j
 @RestController
 public class TalksumController {
-
     private final STTservice sttservice;
     private final MemberService memberService;
-    // Conditional로 언어에 따라서 다른 빈 주입하기
     public TalksumController(@Qualifier("googleSTTService") STTservice sttservice, MemberService memberService) {
         this.sttservice = sttservice;
         this.memberService = memberService;
     }
 
-    // DTO로 변환 후 리턴 기능 추가하기
-    @GetMapping("/createUser")
-    public Long createUser(String loginId, String password, String name){
-        Member member = new Member(loginId, password, name);
-
-        return memberService.join(member);
+    /* 회원 가입 폼 */
+    @GetMapping("/member/signup")
+    public String createUserForm(){
+        return "members/signup";
     }
 
+    /* 회원가입 */
+    @PostMapping("/member/createUser")
+    public String createUser(@Validated MemberDto memberDto, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            log.info("errors = {}", bindingResult);
+            return "members/signup";
+        }
+
+        memberService.join(memberDto);
+
+        log.info("member = {}",memberDto.toString());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/member/{memberId}")
+    public String myPage(@SessionAttribute(name = "loginMember", required = true)Member loginMember, @PathVariable Long memberId, Model model){
+
+        if(!(memberId.equals(loginMember.getMemberId()))){
+            return "redirect:/member/signup";
+        }
+
+        Member member=memberService.findMemberById(memberId);
+        model.addAttribute("member",member);
+
+        // redirect할 페이지
+        return "members/mypage";
+    }
+
+    /* 회원 정보 수정 페이지 */
+    @GetMapping("/member/{memberId}/edit")
+    public String updateMemberForm(@SessionAttribute(name="loginMember", required = true)Member loginMember, @PathVariable Long memberId, Model model){
+
+        if(!loginMember.getMemberId().equals(memberId)){
+            return "redirect:/mypage";
+        }
+
+        Member member=memberService.findMemberById(memberId);
+        model.addAttribute("member",member);
+
+        return "members/updateMemberForm";
+    }
+
+    /* 회원 정보 수정 처리 */
+    @PutMapping("/member/{memberId}/edit")
+    public String updateMember(@PathVariable Long memberId, @Validated @ModelAttribute("memberParam") MemberDto editMemberParam, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            return "members/updateMemberForm";
+        }
+
+        memberService.updateMember(memberId, editMemberParam);
+
+        return "redirect:/member/{memberId}";
+    }
+
+    /* 회원 정보 삭제 */
+    @DeleteMapping("/member/delete/{memberId}")
+    public String delete(@SessionAttribute(name="loginMember", required = true)Member loginMember, @PathVariable Long memberId, HttpSession session){
+
+        if(!(memberId.equals(loginMember.getMemberId()))){
+            return "redirect:/mypage";
+        }
+
+        Member member= memberService.findMemberById(memberId);
+        memberService.withdrawal(member.getMemberId());
+
+        if(session!=null){
+            session.invalidate();
+        }
+
+        return "redirect:/";
+    }
+
+    /* 로그인 페이지 */
+    @GetMapping("/login")
+    public String loginForm(Model model){
+        //model.addAttribute("loginForm", new MemberDto());
+        return "login/loginForm";
+    }
+
+    /* 로그인 처리 */
+    @PostMapping("/login")
+    public String login(@Validated @ModelAttribute("MemberDto") MemberDto form, BindingResult bindingResult, HttpServletRequest request, @RequestParam(defaultValue = "/")String redirectURL){
+        if(bindingResult.hasErrors()){
+            return "login/loginForm";
+        }
+        Member loginMember = memberService.login(form.getLoginId(), form.getPassword());
+
+        if(loginMember == null){
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "login/loginForm";
+        }
+        HttpSession session = request.getSession(true);
+
+        session.setAttribute("loginMember", loginMember);
+
+
+        return "redirect:" + redirectURL;
+    }
+
+    @PostMapping("/logout")
+
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if(session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/";
+    }
 }

@@ -1,14 +1,21 @@
-package talksum.talksum.domain;
+package talksum.talksum.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import talksum.talksum.domain.entity.Member;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Getter
+@Table(name = "note")
+@Builder
 public class Note {
 
     @Id
@@ -28,18 +35,21 @@ public class Note {
 
     @Column(name = "createdDate", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     @Column(name = "modifiedDate", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedDate;
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 
     @ManyToOne
     @JoinColumn(name = "authorId", referencedColumnName = "loginId", nullable = false)
     private Member author;
 
 
-    public Note(String title, boolean bookMark, String noteContent, Date createdDate, Date modifiedDate, Member author) {
+    public Note(Long noteId, String title, boolean bookMark, String noteContent, LocalDateTime createdDate, LocalDateTime modifiedDate, Member author) {
+        this.noteId = noteId;
         this.title = title;
         this.bookMark = bookMark;
         this.noteContent = noteContent;
