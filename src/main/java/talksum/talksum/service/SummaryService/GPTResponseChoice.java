@@ -1,10 +1,13 @@
 package talksum.talksum.service.SummaryService;
 
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class GPTResponseChoice {
-    String text, finish_reason;
+    String finish_reason;
     int index;
-    Object logprobs;
+    GPTResponseMessage message;
 }

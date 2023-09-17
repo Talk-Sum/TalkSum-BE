@@ -2,6 +2,7 @@ package talksum.talksum.controller;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import talksum.talksum.domain.Member;
 import talksum.talksum.service.STTservice.STTservice;
@@ -25,9 +26,5 @@ public class TalksumController {
 
         return memberService.join(member);
     }
-
-
-
-
 
 }
