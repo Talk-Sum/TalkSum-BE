@@ -3,30 +3,56 @@ package talksum.talksum.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import talksum.talksum.domain.dto.MemberDto;
 import lombok.extern.slf4j.Slf4j;
+import talksum.talksum.domain.dto.NoteDto;
 import talksum.talksum.domain.entity.Member;
+import talksum.talksum.repository.NoteRepository;
+import talksum.talksum.service.ExtractAudio.FileDownloadService;
+import talksum.talksum.service.ExtractAudio.GenerateFileNameService;
+import talksum.talksum.service.ExtractAudio.YoutubeDownloadService;
+import talksum.talksum.service.NoteService;
+import talksum.talksum.service.STTservice.GoogleSTTService;
 import talksum.talksum.service.STTservice.STTservice;
 import talksum.talksum.service.MemberService;
+
+import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RestController
 public class TalksumController {
+
     private final STTservice sttservice;
     private final MemberService memberService;
-    public TalksumController(@Qualifier("googleSTTService") STTservice sttservice, MemberService memberService) {
+    private final NoteService noteService;
+
+    private FileDownloadService fileDownloadService;
+    private YoutubeDownloadService youtubeDownloadService;
+    private NoteRepository noteRepository;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public TalksumController(@Qualifier("googleSTTService") STTservice sttservice, MemberService memberService, NoteService noteService, FileDownloadService fileDownloadService, YoutubeDownloadService youtubeDownloadService) {
         this.sttservice = sttservice;
         this.memberService = memberService;
+        this.noteService = noteService;
+        this.fileDownloadService = fileDownloadService;
+        this.youtubeDownloadService = youtubeDownloadService;
     }
 
-
+    /* Main page */
+    @GetMapping("/")
+    public String mainPage(){
+        return "index";
+    }
 
     /* 회원 가입 폼 */
     @GetMapping("/member/signup")
@@ -137,24 +163,7 @@ public class TalksumController {
         return "redirect:" + redirectURL;
     }
 
-
-    /*
-    @PostMapping("/createNote")
-    public String createNote(@RequestParam("file") MultipartFile file, @RequestParam("url") String url, @RequestParam("title") String title, RedirectAttributes redirectAttributes){
-        if(file != null && url == null){
-        }
-        else if(file == null && url != null){
-
-        }
-        else{
-            redirectAttributes.addFlashAttribute("파일 업로드 혹은 유튜브 URL중 한 가지를 입력해주세요.");
-            return "redirect:/error";
-        }
-
-    }
-
-     */
-
+    /* 로그아웃 */
     @PostMapping("/logout")
 
     public String logout(HttpServletRequest request) {
@@ -166,4 +175,87 @@ public class TalksumController {
 
         return "redirect:/";
     }
+
+    /* 요약노트 생성 페이지 */
+    @GetMapping("/note")
+    public String note(){
+        return "mypages/createNote";
+    }
+
+    /* 유튜브 링크로 입력 -> 텍스트 추출 후 view 화면에 text 를 노트로 띄우기 */
+    @PostMapping("/uploadLink")
+    public ModelAndView uploadLink(@RequestParam("inputUrl") String video){
+        // yt-dlp 사용해서 음성데이터 받아오기
+        //예외처리 .. 도와주세요
+        String fileName = youtubeDownloadService.getAudioName(video);
+
+        try {
+            //byte[] videoData = restTemplate.getForObject(video, byte[].class);
+            //model.addAttribute 로 바로 노트화?
+            String text = sttservice.executeSTT(fileName);
+            noteRepository.saveNote(text);
+
+            ModelAndView modelAndView= new ModelAndView("mypages/mypage");
+            modelAndView.addObject("message", "영상 처리 및 텍스트 추출이 완료되었습니다.");
+            return modelAndView;
+        }
+        catch(Exception e){
+            ModelAndView errorModelAndView = new ModelAndView("mypages/fileUploadPage");
+            errorModelAndView.addObject("errorMessage", "영상 처리 도중 오류가 발생하였습니다.");
+            return errorModelAndView;
+        }
+    }
+
+    /* 음성 데이터로 입력 -> 텍스트 추출 후 view 화면에 text 를 노트로 띄우기 */
+    @PostMapping("/uploadFile")
+    public ModelAndView uploadFile(@RequestParam("inputFile") MultipartFile audioFile){
+        try {
+            String fileName = fileDownloadService.getAudioName(audioFile);
+            String text = sttservice.executeSTT(fileName);
+            //model.addAttribute 로 바로 노트화?
+            noteRepository.saveNote(text);
+
+            ModelAndView modelAndView= new ModelAndView("mypages/mypage");
+            modelAndView.addObject("message", "영상 처리 및 텍스트 추출이 완료되었습니다.");
+            return modelAndView;
+        }
+        catch(Exception e){
+            ModelAndView errorModelAndView = new ModelAndView("mypages/fileUploadPage");
+            errorModelAndView.addObject("errorMessage", "영상 처리 도중 오류가 발생하였습니다.");
+            return errorModelAndView;
+        }
+    }
+
+    /* 노트 목록(마이페이지) */
+    @GetMapping("/mypage")
+    public String mypage(Model model, @RequestParam(value = "page", defaultValue = "1")Integer pageNum){
+        List<NoteDto> noteDtoList=noteService.getNoteList(pageNum);
+        Integer[] pageList=noteService.getPageList(pageNum);
+
+        model.addAttribute("noteDtoList", noteDtoList);
+        model.addAttribute("pageList", pageList);
+
+        return "mypages/mypage";
+    }
+
+    /* 노트 검색 */
+    @GetMapping("/note/search")
+    public String search(@RequestParam(value = "keyword")String keyword, Model model){
+        List<NoteDto> noteDtoList= noteService.searchPosts(keyword);
+        model.addAttribute("noteList", noteDtoList);
+
+        return "mypages/mypage";
+    }
+
+    /* 노트 삭제 처리 */
+    @DeleteMapping("/mypage/note/{noteId}")
+    public String delete(NoteDto noteDto, @PathVariable("noteId")Long noteId, @SessionAttribute(name = "loginMember", required = true) Member loginMember){
+        noteDto.setAuthor(loginMember);
+        if(!noteDto.getAuthor().equals(loginMember)){
+            return "redirect:mypages/NoteDetail";
+        }
+        noteRepository.deleteById(noteId);
+        return "redirect:/mypage";
+    }
+
 }

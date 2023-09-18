@@ -11,13 +11,40 @@ import java.util.List;
 
 @Service
 public class GoogleSTTService implements STTservice{
-    @Value("${AUDIO_FILE_PATH}")
-    private String AUDIO_FILE_PATH;
+    @Value("${GS_PATH}")
+    private String GS_PATH;
 
     @Override
     public String executeSTT(String fileName) throws Exception {
-        String filePath = AUDIO_FILE_PATH + fileName;
+
+
+        String filePath = GS_PATH + fileName;
         String transcript = "";
+
+        try (SpeechClient speechClient = SpeechClient.create()) {
+            RecognitionConfig config =
+                    RecognitionConfig.newBuilder()
+                            .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
+                            .setSampleRateHertz(16000)
+                            .setLanguageCode("en-US")
+                            .build();
+
+            RecognitionAudio audio = RecognitionAudio.newBuilder()
+                    .setUri(audioUri)
+                    .build();
+
+            // STT 호출
+            RecognizeResponse response = speechClient.recognize(config, audio);
+
+            // STT 결과 출력
+            List<SpeechRecognitionResult> results = response.getResultsList();
+            for (SpeechRecognitionResult result : results) {
+                transcript += result.getAlternatives(0).getTranscript();
+            }
+            return transcript;
+        }
+        /*
+
         try (SpeechClient speechClient = SpeechClient.create()) {
 
             Path path = Paths.get(filePath);
@@ -45,5 +72,7 @@ public class GoogleSTTService implements STTservice{
             return new String("음성이 인식되지 않았습니다.");
         }
         return transcript;
+
+         */
     }
 }
