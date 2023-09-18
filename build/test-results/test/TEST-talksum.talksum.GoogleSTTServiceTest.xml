@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="talksum.talksum.GoogleSTTServiceTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-09-17T20:16:50" hostname="MacBook-Pro-2.local" time="2.999">
+  <properties/>
+  <testcase name="googleSTTService()" classname="talksum.talksum.GoogleSTTServiceTest" time="2.999">
+    <failure message="com.google.api.gax.rpc.InvalidArgumentException: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Request payload size exceeds the limit: 10485760 bytes." type="com.google.api.gax.rpc.InvalidArgumentException">com.google.api.gax.rpc.InvalidArgumentException: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Request payload size exceeds the limit: 10485760 bytes.
+	at app//com.google.api.gax.rpc.ApiExceptionFactory.createException(ApiExceptionFactory.java:92)
+	at app//com.google.api.gax.rpc.ApiExceptionFactory.createException(ApiExceptionFactory.java:41)
+	at app//com.google.api.gax.grpc.GrpcApiExceptionFactory.create(GrpcApiExceptionFactory.java:86)
+	at app//com.google.api.gax.grpc.GrpcApiExceptionFactory.create(GrpcApiExceptionFactory.java:66)
+	at app//com.google.api.gax.grpc.GrpcExceptionCallable$ExceptionTransformingFuture.onFailure(GrpcExceptionCallable.java:97)
+	at app//com.google.api.core.ApiFutures$1.onFailure(ApiFutures.java:84)
+	at app//com.google.common.util.concurrent.Futures$CallbackListener.run(Futures.java:1127)
+	at app//com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:31)
+	at app//com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1286)
+	at app//com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:1055)
+	at app//com.google.common.util.concurrent.AbstractFuture.setException(AbstractFuture.java:807)
+	at app//io.grpc.stub.ClientCalls$GrpcFuture.setException(ClientCalls.java:578)
+	at app//io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:548)
+	at app//io.grpc.PartialForwardingClientCallListener.onClose(PartialForwardingClientCallListener.java:39)
+	at app//io.grpc.ForwardingClientCallListener.onClose(ForwardingClientCallListener.java:23)
+	at app//io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener.onClose(ForwardingClientCallListener.java:40)
+	at app//com.google.api.gax.grpc.ChannelPool$ReleasingClientCall$1.onClose(ChannelPool.java:541)
+	at app//io.grpc.internal.DelayedClientCall$DelayedListener$3.run(DelayedClientCall.java:489)
+	at app//io.grpc.internal.DelayedClientCall$DelayedListener.delayOrExecute(DelayedClientCall.java:453)
+	at app//io.grpc.internal.DelayedClientCall$DelayedListener.onClose(DelayedClientCall.java:486)
+	at app//io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:567)
+	at app//io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:71)
+	at app//io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:735)
+	at app//io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:716)
+	at app//io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at app//io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base@19.0.1/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base@19.0.1/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base@19.0.1/java.lang.Thread.run(Thread.java:1589)
+	Suppressed: com.google.api.gax.rpc.AsyncTaskException: Asynchronous task failed
+		at app//com.google.api.gax.rpc.ApiExceptions.callAndTranslateApiException(ApiExceptions.java:57)
+		at app//com.google.api.gax.rpc.UnaryCallable.call(UnaryCallable.java:112)
+		at app//com.google.cloud.speech.v1.SpeechClient.recognize(SpeechClient.java:252)
+		at app//com.google.cloud.speech.v1.SpeechClient.recognize(SpeechClient.java:222)
+		at app//talksum.talksum.service.STTservice.GoogleSTTService.executeSTT(GoogleSTTService.java:36)
+		at app//talksum.talksum.GoogleSTTServiceTest.googleSTTService(GoogleSTTServiceTest.java:14)
+		at java.base@19.0.1/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base@19.0.1/java.lang.reflect.Method.invoke(Method.java:578)
+		at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+		at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+		at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+		at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+		at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+		at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+		at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+		at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+		at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+		at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+		at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+		at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+		at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+		at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+		at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+		at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+		at java.base@19.0.1/java.util.ArrayList.forEach(ArrayList.java:1511)
+		at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+		at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+		at java.base@19.0.1/java.util.ArrayList.forEach(ArrayList.java:1511)
+		at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+		at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+		at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+		at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+		at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+		at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+		at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+		at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+		at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+		at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+		at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+		at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+		at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+		at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+		at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+		at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110)
+		at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90)
+		at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85)
+		at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+		at java.base@19.0.1/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base@19.0.1/java.lang.reflect.Method.invoke(Method.java:578)
+		at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+		at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+		at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+		at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+		at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+		at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+		at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+		at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+		at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+		at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+		at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+		at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+		at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+		at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+Caused by: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Request payload size exceeds the limit: 10485760 bytes.
+	at app//io.grpc.Status.asRuntimeException(Status.java:539)
+	... 17 more
+</failure>
+  </testcase>
+  <system-out><![CDATA[Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+05:16:49.151 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [talksum.talksum.GoogleSTTServiceTest]: GoogleSTTServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+05:16:49.192 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration talksum.talksum.TalksumApplication for test class talksum.talksum.GoogleSTTServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.3)
+
+2023-09-18T05:16:49.326+09:00  INFO 843 --- [    Test worker] talksum.talksum.GoogleSTTServiceTest     : Starting GoogleSTTServiceTest using Java 19.0.1 with PID 843 (started by junhaa in /Users/junhaa/Desktop/3/talk/talksum)
+2023-09-18T05:16:49.327+09:00  INFO 843 --- [    Test worker] talksum.talksum.GoogleSTTServiceTest     : No active profile set, falling back to 1 default profile: "default"
+2023-09-18T05:16:49.559+09:00  INFO 843 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-18T05:16:49.581+09:00  INFO 843 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 2 JPA repository interfaces.
+2023-09-18T05:16:49.782+09:00  INFO 843 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-18T05:16:49.801+09:00  INFO 843 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-09-18T05:16:49.802+09:00  INFO 843 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-18T05:16:49.847+09:00  INFO 843 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-18T05:16:49.903+09:00  INFO 843 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-09-18T05:16:49.909+09:00  INFO 843 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-18T05:16:50.048+09:00  INFO 843 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f7336b2
+2023-09-18T05:16:50.049+09:00  INFO 843 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-18T05:16:50.142+09:00  INFO 843 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-18T05:16:50.370+09:00  INFO 843 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: alter table note modify column created_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null
+Hibernate: alter table note modify column modified_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
+2023-09-18T05:16:50.419+09:00  INFO 843 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-18T05:16:50.589+09:00  WARN 843 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-18T05:16:50.751+09:00  WARN 843 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 75038071-51bf-4cdf-969f-5ad952f745ec
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-09-18T05:16:50.785+09:00  INFO 843 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4f1ea463, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a641f6, org.springframework.security.web.context.SecurityContextHolderFilter@34947355, org.springframework.security.web.header.HeaderWriterFilter@65067d37, org.springframework.security.web.csrf.CsrfFilter@713c8cbb, org.springframework.security.web.authentication.logout.LogoutFilter@4ed90b04, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@30a99b85, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4615bc00, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@66487713, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7337f87e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e6ad84c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56728f48, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18ed8b75, org.springframework.security.web.access.ExceptionTranslationFilter@11d557a5, org.springframework.security.web.access.intercept.AuthorizationFilter@65013d71]
+2023-09-18T05:16:50.805+09:00  INFO 843 --- [    Test worker] talksum.talksum.GoogleSTTServiceTest     : Started GoogleSTTServiceTest in 1.559 seconds (process running for 1.989)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

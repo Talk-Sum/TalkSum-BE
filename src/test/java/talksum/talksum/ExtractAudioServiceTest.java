@@ -12,8 +12,8 @@ public class ExtractAudioServiceTest {
     YoutubeDownloadService youtubeDownloadService;
 
     @Test
-    void extractAudioTest(){
-        String url = "https://www.youtube.com/watch?v=0ihv9XStzYM";
+    void youtubeDownloadTest(){
+        String url = "https://www.youtube.com/watch?v=bG_FZRVl16U";
         String audioname = youtubeDownloadService.getAudioName(url);
 
     }

@@ -25,7 +25,7 @@ public class GoogleSTTService implements STTservice{
             ByteString audioBytes = ByteString.copyFrom(data);
 
             RecognitionConfig config = RecognitionConfig.newBuilder()
-                    .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
+                    .setEncoding(RecognitionConfig.AudioEncoding.FLAC)
                     .setLanguageCode("en-US")
                     //.setAudioChannelCount(2) // AudioChannel 수 확인하기
                     .build();

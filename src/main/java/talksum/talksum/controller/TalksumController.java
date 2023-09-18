@@ -3,10 +3,13 @@ package talksum.talksum.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import talksum.talksum.domain.dto.MemberDto;
 import lombok.extern.slf4j.Slf4j;
 import talksum.talksum.domain.entity.Member;
@@ -133,6 +136,24 @@ public class TalksumController {
 
         return "redirect:" + redirectURL;
     }
+
+
+    /*
+    @PostMapping("/createNote")
+    public String createNote(@RequestParam("file") MultipartFile file, @RequestParam("url") String url, @RequestParam("title") String title, RedirectAttributes redirectAttributes){
+        if(file != null && url == null){
+        }
+        else if(file == null && url != null){
+
+        }
+        else{
+            redirectAttributes.addFlashAttribute("파일 업로드 혹은 유튜브 URL중 한 가지를 입력해주세요.");
+            return "redirect:/error";
+        }
+
+    }
+
+     */
 
     @PostMapping("/logout")
 
