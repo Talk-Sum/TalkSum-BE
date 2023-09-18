@@ -11,7 +11,7 @@ public class MozillaSTTService implements STTservice {
     private ExecuteCommandService executeCommandService ;
 
     @Override
-    public String executeSTT(String fileName) throws Exception {
+    public String executeSTT(String fileName, String fileExtension, String language) throws Exception {
         return null;
     }
 }

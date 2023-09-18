@@ -64,6 +64,18 @@ public class NoteService {
         }
     }
 
+    /* save */
+    @Transactional
+    public Long saveNote(NoteDto noteDto) {
+        return noteRepository.save(noteDto.toEntity()).getNoteId();
+    }
+
+    /* delete */
+    @Transactional
+    public void deleteNote(Long noteId){
+        noteRepository.deleteById(noteId);
+    }
+
     /* Search */
     @Transactional
     public List<NoteDto> searchPosts(String keyword) {
@@ -79,7 +91,11 @@ public class NoteService {
         return boardDtoList;
     }
 
+    /* BookMark toggle
+    @Transactional
+    public Note bookMarkOperation(Long noteId,NoteDto noteDto){
 
+    }*/
 
     public Integer[] getPageList(Integer curPageNum) {
 
@@ -99,4 +115,5 @@ public class NoteService {
 
         return pageList;
     }
+
 }

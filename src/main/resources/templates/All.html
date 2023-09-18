@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/All.css">
+</head>
+<body>
+        <p class="allnote">전체 노트</p>
+        <div class="row">
+            <div class="name">이름</div>
+            <div class="loca">즐겨찾기</div>
+            <div class="info">마지막 수정 일자</div>
+        </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows" onclick="">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+                <div class="names">8/30 운영체제 13주차 대면 강의</div>
+                <div class="note-content">
+                    프레임을 할당하는 얘기와 페이지를 교체하는 얘기 두 가지가 소개되고 있어요. 내가 가지고 있는 물리적인...
+                </div>
+            </div>
+            <div class="fold">
+                <img src="../static/image/emptyheart.png" alt="하트 아이콘" onclick="toggleHeart(event)">
+            </div>
+            <div class="time">8.30 수 오후 8:41</div>
+        </div>
+    </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+            <div class="names">8/12 소프트웨어공학 12주차 대면 강의</div>
+            <div class="note-content">
+                우리가 이미 소프트웨어 테스팅에 관한 이야기는 했어요. 그래서 소프트웨어 테스팅 명세 검증할 때 했는데... 
+            </div>
+        </div>
+        <div class="fold"><img src="../static/image/emptyheart.png" alt="하트 아이콘" onclick="toggleHeart(event)"></div>
+            <div class="time">8.12 금 오후 3:19</div>
+        </div>
+    </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+            <div class="names">7/16 공학경진대회 회의</div>
+            <div class="note-content">
+                저희가 저번까지는 주제를 대충 정했고 오늘은 역할 분담을 한번 해보면 좋을 것 같아요. 일단 프론트랑 백...
+            </div>
+        </div>
+        <div class="fold"><img src="../static/image/emptyheart.png"></div>
+            <div class="time">7.16 수 오전 10:32</div>
+        </div>
+    </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+            <div class="names">7/3 세바시 유튜브</div>
+            <div class="note-content">
+                '독해야 성공한다'는 말, 들어보셨나요? 대치동 유명 강사인 저는 수험생들에게 '독해져라'고 끊임없이 강조...
+            </div>
+        </div>
+        <div class="fold"><img src="../static/image/emptyheart.png"></div>
+            <div class="time">7.3 화 오후 2:52</div>
+        </div>
+    </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+            <div class="names">5/25 무한도전 오분순삭 유튜브</div>
+            <div class="note-content">
+                점심 뭐드실래요? 점심 메뉴는 우리 정과장이 정하는걸로! 다같이...? 왜 제가 정합니까? 이러면은 우리가...
+            </div>
+        </div>
+        <div class="fold"><img src="../static/image/emptyheart.png"></div>
+            <div class="time">5.25 토 오후 6:27</div>
+        </div>
+    </div>
+    <hr>
+    <div class="note-list">
+        <div class="rows">
+            <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+            <div class="notename">
+            <div class="names">4/21 세나개 유튜브</div>
+            <div class="note-content">
+                강조되고 반복되는 소리는 강아지를 불안하게 해요! 네! 아니요! 이렇게는 좋은게 아니에요. 네 맞아요. 그런...
+            </div>
+        </div>
+        <div class="fold"><img src="../static/image/emptyheart.png"></div>
+            <div class="time">4.21 화 오후 1:41</div>
+        </div>
+    </div>
+
+    <script>
+     function goToPage(url) {
+    window.location.href = url;
+}
+
+function toggleHeart(event) {
+    event.stopPropagation(); // 이벤트 전파를 중단
+    event.preventDefault();  // 기본 동작을 중단
+
+    const heartImage = event.target;
+
+    if (heartImage.src.endsWith("emptyheart.png")) {
+        heartImage.src = "../static/image/fullheart.png";
+    } else {
+        heartImage.src = "../static/image/emptyheart.png";
+    }
+}
+    </script>
+</body>
+</html>

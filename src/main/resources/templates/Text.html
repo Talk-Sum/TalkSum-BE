@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>톡썸 노트</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/Text.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
+    
+</head>
+
+    <body id="body-pd" class="body-pd">
+
+        <div class="containers">
+            <div id="divSearch">
+                <input placeholder="노트 이름을 검색하세요.">
+                <img src="https://img.icons8.com/ios/50/search--v1.png" alt="파일 아이콘" class="image">
+            </div>
+            <button class="btn-open-popup">
+                <ion-icon name="add-outline" class="nav__icon"></ion-icon>
+                <span class="new_note">새 노트 만들기</span>
+            </button>
+        </div>
+
+       
+
+        <div class="l-navbar expander" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <div class="nav__first">
+                            <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                            <div class="nav__profile">
+                            <img width="36" height="36"  src="https://img.icons8.com/fluency/48/user-male-circle--v1.png" alt="user-male-circle--v1"/>
+                            <a href="#" class="nav__logo">이나경님</a>
+                        </div>
+                        </div>              
+                    </div>
+                    <hr>
+
+                    <div class="modal">
+                        <div class="modal_body">
+                            <h5 class="modal-title">새 노트 만들기</h5>
+                            
+                            <div class="modal-footer">
+                                
+                                <div class="notenameinput">
+                                    <div class="note-name">노트 제목</div>
+                                      <input type="text" class="input-name" placeholder="노트 제목을 입력하세요.">
+                                      
+                                  </div>
+                                  
+
+
+                                <div class="upload">파일 업로드하기</div>
+                                <div class="upload-box">
+                                    <div id="drop-file" class="drag-file">
+                                      <img src="https://img.icons8.com/ios/50/upload-to-cloud--v1.png" alt="파일 아이콘" class="image">
+                                      <p class="message">내 PC에서 음성파일을 첨부하거나 끌어오세요.<br>
+                                        음성파일 길이는 한 번에 최대 180분까지 가능해요.</p>
+                                        <div class="message2">
+                                            <img src="https://img.icons8.com/ios/50/globe--v1.png" alt="파일 아이콘" class="image2">
+                                            인식 언어&nbsp;<span class="selected-language">한국어
+                                                <img src="https://img.icons8.com/color/48/expand-arrow--v1.png" alt="파일 아이콘" class="image2">
+                                            </span>
+                                            <ul class="dropdown-menu">
+                                                <li data-lang="한국어">한국어</li>
+                                                <li data-lang="영어">영어</li>
+                                                <li data-lang="스페인어">스페인어</li>
+                                            </ul>
+                                        </div>
+
+                                      <label class="file-label" for="chooseFile">파일 첨부하기</label>
+                                    </div>
+                                  </div>
+
+                                <input class="file" id="chooseFile" type="file" multiple>
+                                <!-- <div id="files" class="files">
+                                    <div class="file">
+                                      <div class="thumbnail">
+                                        <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일타입 이미지" class="image">
+                                      </div>
+                                      <div class="details">
+                                        <header class="header">
+                                          <span class="name">Photo.png</span>
+                                          <span class="size">7.5 mb</span>
+                                        </header>
+                                        <div class="progress">
+                                          <div class="bar"></div>
+                                        </div>
+                                        <div class="status">
+                                          <span class="percent">37% done</span>
+                                          <span class="speed">90KB/sec</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div> --> 
+
+                                  <div class="inputlink">
+                                  <div class="import">링크로 가져오기</div>
+
+                                  <div class="link-upload-container">
+                                    <input type="text" class="input-text" placeholder="유튜브 링크 URL을 여기에 입력하세요.">
+                                    <button class="upload-btn">Upload</button>
+                                </div>
+
+                                </div>
+
+                                <button class="btn btn-secondary btn-close-modal">X</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    
+
+                    <div class="nav__list">
+                        <a href="#" class="nav__link active">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav_name">전체 노트</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <ion-icon name="star-outline" class="nav__icon"></ion-icon>
+                            <span class="nav_name">중요 노트</span>
+                        </a>
+    
+                        <a href="#" class="nav__link">
+                            <ion-icon name="trash-outline" class="nav__icon"></ion-icon>
+                            <span class="nav_name">휴지통</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="contentsnote">
+            <div class="content active" id="content0">
+                <div include-html="All.html"></div>
+            </div>
+            <div class="content" id="content1">
+                <div include-html="Important.html"></div>
+            </div>
+            <div class="content" id="content2">
+                휴지통
+            </div>
+        </div>
+    
+        <!-- IONICONS -->
+        <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+        <!-- JS -->
+        <script src="../static/js/Text.js"></script>
+    </body>
+    </html>
+    

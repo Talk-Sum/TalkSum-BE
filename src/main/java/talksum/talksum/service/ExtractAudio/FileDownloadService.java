@@ -19,7 +19,7 @@ public class FileDownloadService {
     @Value("${AUDIO_FILE_PATH}")
     private String AUDIO_FILE_PATH;
 
-    public String getAudioName(MultipartFile file) throws IOException{
+    public String getAudioName(MultipartFile file, String fileExtension) throws IOException{
         // 파일이 빈 경우
         if(file.isEmpty()){
             throw new NullPointerException("파일이 존재하지 않습니다.");
@@ -29,6 +29,6 @@ public class FileDownloadService {
         // 로컬에 파일 저장
         File dest = new File(AUDIO_FILE_PATH);
         file.transferTo(dest);
-        return fileName;
+        return fileName + fileExtension;
     }
 }

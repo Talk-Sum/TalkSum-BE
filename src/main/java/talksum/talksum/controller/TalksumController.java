@@ -184,16 +184,15 @@ public class TalksumController {
 
     /* 유튜브 링크로 입력 -> 텍스트 추출 후 view 화면에 text 를 노트로 띄우기 */
     @PostMapping("/uploadLink")
-    public ModelAndView uploadLink(@RequestParam("inputUrl") String video){
+    public ModelAndView uploadLink(@RequestParam("inputUrl") String video, String language){
         // yt-dlp 사용해서 음성데이터 받아오기
         //예외처리 .. 도와주세요
         String fileName = youtubeDownloadService.getAudioName(video);
 
         try {
-            //byte[] videoData = restTemplate.getForObject(video, byte[].class);
             //model.addAttribute 로 바로 노트화?
-            String text = sttservice.executeSTT(fileName);
-            noteRepository.saveNote(text);
+            String text = sttservice.executeSTT(fileName, "flac", language);
+            //noteRepository.save(text);
 
             ModelAndView modelAndView= new ModelAndView("mypages/mypage");
             modelAndView.addObject("message", "영상 처리 및 텍스트 추출이 완료되었습니다.");
@@ -208,12 +207,15 @@ public class TalksumController {
 
     /* 음성 데이터로 입력 -> 텍스트 추출 후 view 화면에 text 를 노트로 띄우기 */
     @PostMapping("/uploadFile")
-    public ModelAndView uploadFile(@RequestParam("inputFile") MultipartFile audioFile){
+    public ModelAndView uploadFile(@RequestParam("inputFile") MultipartFile audioFile, String language){
         try {
-            String fileName = fileDownloadService.getAudioName(audioFile);
-            String text = sttservice.executeSTT(fileName);
+            String originalFilename = audioFile.getOriginalFilename();
+            String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1); // 파일 확장자
+
+            String fileName = fileDownloadService.getAudioName(audioFile, fileExtension);
+            String text = sttservice.executeSTT(fileName, fileExtension, language);
             //model.addAttribute 로 바로 노트화?
-            noteRepository.saveNote(text);
+            //noteRepository.saveNote(text);
 
             ModelAndView modelAndView= new ModelAndView("mypages/mypage");
             modelAndView.addObject("message", "영상 처리 및 텍스트 추출이 완료되었습니다.");
@@ -254,8 +256,9 @@ public class TalksumController {
         if(!noteDto.getAuthor().equals(loginMember)){
             return "redirect:mypages/NoteDetail";
         }
-        noteRepository.deleteById(noteId);
+        noteService.deleteNote(noteDto.toEntity().getNoteId());
         return "redirect:/mypage";
     }
+
 
 }
