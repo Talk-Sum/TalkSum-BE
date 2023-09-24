@@ -1,0 +1,759 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* VARIABLES CSS */
+:root {
+    --nav--width: 92px;
+
+    /* Colores */
+    --first-color: #f2f2f2;
+    --bg-color: #Fafbfc;
+    --sub-color: #b6cefc;
+    --white-color: #495057;
+
+    /* Fuente y tipografia */
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    /* z index */
+    --z-fixed: 100;
+}
+
+/* BASE */
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+*{
+    font-family: 'Pretendard';
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 0rem 0 0 6.75rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+}
+
+h1 {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* l NAV */
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--nav--width);
+    height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--white-color);
+    padding: 1.5rem 1.5rem 2rem;
+    transition: .5s;
+    z-index: var(--z-fixed);
+}
+
+/* NAV */
+.nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.nav__brand {
+    display: flex;
+    flex-direction: column;  /* 요소들을 가로로 배열 */
+    justify-content: center; /* 가로 방향 중앙 정렬 */
+    align-items: center; /* 세로 방향 중앙 정렬 */
+}
+
+
+
+.centered-content {
+    margin-left:3rem;
+    margin-top:1rem;
+    flex: 1; /* 이 부분이 중요합니다. 이렇게 하면 centered-content가 가능한 한의 공간을 차지하게 됩니다. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav__toggle {
+    font-size: 1.25rem;
+    padding: .75rem;
+    cursor: pointer;
+    margin-left: 0; /* 왼쪽 마진 제거 */
+}
+
+.nav__first{
+    display: flex;
+    align-items: center; /* 세로 방향 중앙 정렬 */
+    justify-content: flex-start; /* 좌우 요소 간격 최대화 */
+    width: 20vw;
+    height:5vh;
+    gap:0.5rem;
+}
+
+.nav__logo{
+    margin-top:0.4vw;
+}
+
+.nav__profile{
+    display:flex;
+    gap:0.5rem;
+}
+
+.name{
+    text-align:center;
+}
+
+.nav__logo {
+    color: var(--white-color);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.nav__link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: .75rem;
+    padding: .75rem;
+    color: var(--white-color);
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.nav__link:hover {
+    background-color: var(--first-color);
+}
+
+.nav__icon {
+    font-size: 1.25rem;
+}
+
+.nav_name {
+    white-space: nowrap;    /* 줄바꿈 방지 */
+    max-width: 60px; 
+    font-size: var(--small-font-size);
+}
+
+/* Expander menu */
+.expander {
+    width: calc(var(--nav--width) + 9.25rem);
+}
+
+/* Add padding body*/
+.body-pd {
+    padding: 0rem 0 0 15rem;
+}
+
+/* Active links menu */
+.active {
+    background-color: var(--first-color);
+}
+
+/* COLLAPSE */
+.collapse {
+    grid-template-columns: 20px max-content 1fr;
+}
+
+.collapse__link {
+    justify-self: flex-end;
+    transition: .5;
+}
+
+.collapse__menu {
+    padding: .75rem 2.25rem;
+}
+
+.collapse__sublink {
+    color: var(--sub-color);
+    font-size: var(--small-font-size);
+}
+
+.collapse__sublink:hover {
+    color: var(--white-color);
+}
+
+/* Show collapse */
+.showCollapse {
+    display: block;
+}
+
+/* Rotate icon */
+.rotate {
+    transform: rotate(180deg);
+    transition: .5s;
+}
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    position: absolute;
+    top: 700px;
+    left: 90px;
+    width: 100%;
+}
+.logo{
+    width:7vw;
+}
+
+/* header */
+.containers {
+    height:6vh;
+    width: 100%; 
+    margin-top:1rem;
+    padding-left:1.7rem;
+    padding-right:1.4rem;
+    margin: 1rem 0px !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+ .btn-open-popups {
+    width:9vw;
+    height:6vh;
+    text-align: center;
+    justify-content: center;
+    line-height:1vh;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 0.4rem;
+    padding: 0.75rem;
+    color: var(--white-color);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: .3s;
+    cursor: pointer;
+    border: 0.1rem solid #1e8ffa;
+    color: #1e8ffa;
+    background-color: #ffffff;
+}
+
+.buttonclass{
+    display:flex;
+    flex-direction: row;
+    gap:1vw;
+}
+
+
+
+#searchInput{
+width: 20vw;
+    height: 5vh;
+    border: 5px solid #fafbfc;
+    background: #fafbfc;
+    border-radius: 0.5rem;
+    padding: 0 0 0 1vw;
+    font-size: 1.4rem;
+    line-height: 6vh;
+    justify-content: center;
+    outline: none;
+    font-size:1rem;
+}
+
+#searchInput::placeholder{
+ font-size: 1rem;
+}
+
+#searchIcon{
+position: absolute;
+    width: 2.5vw;
+    left:15.5vw;
+    border:none;
+    background:none;
+}
+
+.sicon{
+width:1.7rem;
+}
+#divSearch {
+    display: flex;
+    width: 20vw;
+    align-self: left;
+    justify-content: left;
+    align-items: center; /* 세로 중앙 정렬 */
+    position: relative; 
+}
+
+
+
+
+
+
+/* 컨텐츠 메뉴 */
+/* 기본적으로 모든 컨텐츠를 숨김 */
+.content {
+    background: white;
+    border:none;
+    outline:none;
+    display: none;
+}
+
+/* 활성화된 컨텐츠만 표시 */
+.content.active {
+    display: block;
+}
+
+.nav__link--btn {
+    background-color: #1e8ffa;  /* Bootstrap Primary Color */
+    color:  white; 
+    border-radius: .5rem;
+    padding: .5rem .75rem;
+    text-align: left;
+    transition: background-color .3s ease;
+    border: 0.1rem solid #1e8ffa;
+    display: flex;              /* 아이콘과 텍스트 중앙 정렬을 위해 flex 사용 */
+    justify-content: left;
+    align-items: center;
+}
+
+.nav__link--btn:hover {
+    background-color: #0072ff; /* Bootstrap Primary Hover Color */
+    color: white;
+    text-decoration: none;     /* hover 상태에서 밑줄 제거 */
+}
+
+
+
+/* 모달 */
+.selected-language{
+    color:#1e8ffa;
+    cursor:pointer;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_body {
+    padding-left: 0;
+    background-color: #fff;
+    position: fixed; /* 위치를 fixed로 변경 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙에 위치시키기 위해 translate 사용 */
+    padding: 1.5rem;
+    width: 42vw;
+    border-radius: 2rem;
+}
+
+.btn-primary {
+    position: fixed;
+    bottom: 5%;  /* 버튼을 뷰포트 하단에서 20px 위에 위치시킵니다. */
+    right: 45%;   /* 버튼을 뷰포트 오른쪽에서 20px 왼쪽에 위치시킵니다. */
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    cursor: pointer;
+    border:none;
+    background: transparent; /* 배경색도 없애줌 */
+    color:black;
+}
+
+.btn-close-modal:hover {
+    background-color:white;
+   color:black;
+
+}
+
+
+.modal .modal-title {
+    border-bottom: none;
+    text-decoration:none;
+    margin-left:0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+
+
+.modal-footer {
+    padding:0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 */
+}
+
+.upload-box,
+.file-label {
+    align-self: center; /* 왼쪽 정렬 */
+
+}
+
+.file-label {
+    background-color: #1e8ffa;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 25.5%;
+    height:16%;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  .file {
+    display: none;
+  }
+
+  .upload-box {
+    width: calc(50% - 15px);
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    height: 100%;
+    flex-direction: column;
+  }
+  .upload-box .drag-file {
+    margin-top:0.5rem;
+    width: 38vw;
+    height: 32vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius:0.5rem;
+    border: 0.2rem dashed #dbdbdb;
+  }
+  .upload-box .drag-file.highlight {
+    border: 3px dashed red;
+  }
+  .upload-box .drag-file .image {
+    width: 40px;
+  }
+
+  .upload-box .drag-file .image2 {
+    width: 1rem;
+  } 
+  .upload-box .drag-file .message {
+    text-align:center;
+    margin-bottom: 0;
+    font-size:0.9rem;
+    margin-top:0.3rem;
+  }
+
+  .upload{
+    margin-top:1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .upload-box .drag-file .message2{
+    margin-top:0.5rem;
+    font-size:0.9rem;
+    margin-bottom:1rem;
+  }
+
+  .files .file {
+    display: flex;
+    padding: 20px 20px;
+    border-bottom: 1px solid #dbdbdb;
+  }
+  .files .file:last-child {
+    margin-bottom: 0px;
+    border-bottom: none;
+  }
+  .files .file .thumbnail {
+    display: flex;
+    flex: none;
+    width: 50px;
+    margin-right: 20px;
+    align-items: center;
+  }
+  .files .file .thumbnail .image {
+    width: 100%;
+  }
+  .files .file .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .files .file .details .header {
+    display: flex;
+  }
+  .files .file .details .header .name {
+    width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .files .file .details .header .size {
+    margin-left: auto;
+  }
+  .files .file .progress {
+    position: relative;
+    height: 6px;
+    background-color: #dbdbdb;
+    overflow: hidden;
+    margin-top: 4px;
+    border-radius: 10px;
+  }
+  .files .file .progress .bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #5b975b;
+  }
+  .files .file .status {
+    display: flex;
+    width: 100%;
+  }
+  .files .file .status .speed {
+    margin-left: auto;
+  }
+
+.btn-open-popup {
+    width:9vw;
+    height:6vh;
+    text-align: center;
+    justify-content: center;
+    line-height:1vh;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 0.4rem;
+    padding: 0.75rem;
+    color: var(--white-color);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: .3s;
+    cursor: pointer;
+    border: 0.1rem solid #1e8ffa;
+    color: white;
+    background-color: #1e8ffa;
+}
+
+/* 링크로 입력하기 */
+
+.inputlink {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top:1.5rem;
+}
+
+
+.import {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.notename{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
+}
+
+.notenameinput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top:1.3rem;
+}
+
+
+
+.note-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.input-name:focus {
+    border: 1px solid #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.input-name {          
+    padding: 0.6rem;   
+    width:34.3vw;        
+    border: 1px solid #ccc;  
+    border-radius: 4px;     
+}
+
+.input-text:focus {
+    border: 1px solid #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.link-upload-container {
+    display: flex;           /* Flexbox를 사용하여 자식 요소들을 가로로 배열 */
+    align-items: center;     /* 자식 요소들을 세로로 중앙 정렬 */
+    gap: 10px;               /* 입력 폼과 버튼 사이의 간격 설정 */
+    width:38.2vw;
+}
+
+.input-text {
+    flex-grow: 1;            
+    padding: 0.6rem;           
+    border: 1px solid #ccc;  
+    border-radius: 4px;     
+}
+
+.upload-btn {
+    padding: 0.6rem;      /* 버튼 내부의 패딩 설정 */
+    border: none;            /* 기본 테두리 제거 */
+    background-color: #007BFF; /* 버튼 배경색 설정 */
+    color: #fff;             /* 버튼 텍스트 색상 설정 */
+    border-radius: 4px;      /* 테두리 둥근 모서리 설정 */
+    cursor: pointer;         /* 마우스 커서를 포인터 모양으로 변경 */
+    transition: background-color 0.3s;  /* 배경색 변경 시 애니메이션 효과 적용 */
+}
+
+.upload-btn:hover {
+    background-color: #0056b3; /* 마우스 오버 시 버튼 배경색 변경 */
+}
+
+.loading-modal {
+    display: flex; /* flexbox 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 반투명한 배경 */
+    z-index: 9999;
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0;
+}
+
+p {
+    font-size: 1.3rem;
+}
+
+.loading-content {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* 필요한 경우 크기 조절 */
+    /* width: 300px;
+    height: 150px; */
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* 전체 노트 */
+
+.contentsnote{
+    padding-top:0.3rem;
+    padding-left:1.7rem;
+    width: 100%;
+    padding-right:1.7rem;
+    margin-top:1.4rem;
+}
+
+.home{
+    width: 10vw;
+    font-size: 14px;
+    margin-top:10vw;
+    display:flex;
+    flex-direction: row;
+    gap:0.2vw;
+
+}
+
+.home:hover{
+    cursor:pointer;
+}
+
+
+
+#divSearch {
+    display: flex;
+    width: 20vw;
+    align-self: left;
+    justify-content: left;
+    align-items: center; /* 세로 중앙 정렬 */
+    position: relative;
+}
+
+#divSearch > input {
+    width: 30vw;
+    height: 5vh;
+    border: 5px solid #fafbfc;
+    background: #fafbfc;
+    border-radius: 0.5rem;
+    padding: 0 0 0 1vw;
+    font-size: 1.4rem;
+    line-height: 6vh;
+    justify-content: center;
+    outline: none;
+    font-size:1rem;
+}
+
+#divSearch > input::placeholder {
+    font-size: 1rem;
+}
+
+
+#divSearch > img{
+    position: absolute;
+    width: 24px;
+    left:17.5vw;
+}
+
+/* PDF */
+#files .file {
+    display: none;
+}

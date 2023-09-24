@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/Important.css">
+</head>
+<body>
+<script>
+
+    $(document).ready(function () {
+        $(".toggleBookMarkImportant").click(function () {
+            var noteId = this.getAttribute("data-imp-noteId");
+            var requestUrl = "/toggleBookMark/" + noteId;
+            console.log(requestUrl);
+            $.get(requestUrl);
+            toggleHeart(event);
+        });
+    });
+
+
+    function toggleImageCheckbox(element) {
+        // 체크박스 요소를 가져옵니다.
+        const checkbox = element.nextElementSibling;
+
+        // 체크박스의 상태를 토글합니다.
+        checkbox.checked = !checkbox.checked;
+
+        // 이미지의 소스를 업데이트합니다.
+        if (checkbox.checked) {
+            element.src = "https://img.icons8.com/windows/32/checked-checkbox.png"; // 체크된 상태의 이미지 URL
+        } else {
+            element.src = "https://img.icons8.com/windows/32/unchecked-checkbox.png"; // 체크되지 않은 상태의 이미지 URL
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(() => {
+            let messageElement = document.getElementById('message');
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
+        }, 1000);
+    });
+
+document.getElementById('shareLinkButton').addEventListener('click', function() {
+    // 현재 페이지의 URL을 가져옴
+    const currentPageURL = window.location.href;
+
+    // Clipboard API를 사용하여 URL을 클립보드에 복사
+    navigator.clipboard.writeText(currentPageURL).then(function() {
+        alert('링크가 클립보드에 복사되었습니다.');
+    }).catch(function(err) {
+        console.error('복사 실패:', err);
+    });
+});
+
+document.getElementById('saveIcons').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    // _fonts 변수는 gulim.js에서 가져옴
+    const fontData = _fonts;
+
+    // 폰트를 VFS에 추가
+    pdf.addFileToVFS('gulim.ttf', fontData);
+    // 폰트를 jsPDF에 등록
+    pdf.addFont('gulim.ttf', 'gulim', 'normal');
+    // 폰트 설정
+    pdf.setFont('gulim');
+    pdf.setFontSize(12); // 여기서 폰트 크기를 조정
+
+    // ".recordcontent" 클래스를 가진 모든 div를 가져옴
+    const contents = document.querySelectorAll('.recordcontent');
+    let fullContent = "";
+
+    contents.forEach(content => {
+        fullContent += content.innerText + "\n\n";
+    });
+
+    const lines = pdf.splitTextToSize(fullContent, 180); // 180mm를 최대 폭으로 설정
+    let yPosition = 10;
+
+    lines.forEach(line => {
+        if (yPosition > 280) {
+            pdf.addPage();
+            yPosition = 10;
+        }
+        pdf.text(line, 10, yPosition);
+        yPosition += 10;
+    });
+
+    // PDF 파일을 저장
+    pdf.save('recordcontent.pdf');
+});
+
+
+
+
+
+document.getElementById('searchIcon').addEventListener('click', function() {
+  const searchTerm = prompt("검색어를 입력하세요");
+
+  if (!searchTerm) {
+      alert('검색어를 입력하세요.');
+      return;
+  }
+
+
+  const chats = document.querySelectorAll('.recordcontent');
+  let found = false;
+
+  chats.forEach(chat => {
+
+      chat.innerHTML = chat.innerHTML.replace(/<mark>/g, '').replace(/<\/mark>/g, '');
+
+      if (chat.innerText.includes(searchTerm)) {
+
+          const regex = new RegExp(searchTerm, 'gi');
+          chat.innerHTML = chat.innerHTML.replace(regex, `<mark>${searchTerm}</mark>`);
+          found = true;
+      }
+  });
+
+  if (!found) {
+      alert('일치하는 내용이 없습니다.');
+  }
+});
+
+
+
+
+document.getElementById('copyIcon').addEventListener('click', function() {
+  const content = document.getElementById('summaryContent').innerText;
+
+
+  const textarea = document.createElement('textarea');
+  textarea.value = content;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+
+  alert('내용이 클립보드에 복사되었습니다.');
+});
+
+
+const modal = document.getElementById("myModal");
+const closeBtn = document.querySelector(".close");
+
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+
+function customAlert(text) {
+  document.getElementById("modalText").innerText = text;
+  modal.style.display = "block";
+}
+
+
+document.getElementById('saveIcon').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    // _fonts 변수는 gulim.js에서 가져옴
+    const fontData = _fonts;
+
+    // 폰트를 VFS에 추가
+    pdf.addFileToVFS('gulim.ttf', fontData);
+    // 폰트를 jsPDF에 등록
+    pdf.addFont('gulim.ttf', 'gulim', 'normal');
+    // 폰트 설정
+    pdf.setFont('gulim');
+    pdf.setFontSize(9);
+
+    const content = document.getElementById('summaryContent').innerText;
+
+    const lines = pdf.splitTextToSize(content, 180);
+    let yPosition = 10;
+
+    lines.forEach(line => {
+        if (yPosition > 280) {
+            pdf.addPage();
+            yPosition = 10;
+        }
+        pdf.text(line, 10, yPosition);
+        yPosition += 10;
+    });
+
+    // PDF 파일을 저장
+    pdf.save('summary_content.pdf');
+});
+
+
+
+
+
+</script>
+<form action="/trash" th:object="${noteDto}" method="post">
+    <p class="allnote">중요 노트&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="alert alert-success" type="submit">휴지통으로 이동</button>
+    <p th:if="${message}" th:text="${message}" id="message"></p>
+<div class="row">
+    <div class="name">이름</div>
+    <div class="loca">즐겨찾기</div>
+    <div class="info">마지막 수정 일자</div>
+</div>
+<hr>
+<div class="note-list" th:each="noteDto : ${noteDtoList}">
+    <div class="rows">
+        <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+        <div class="notename">
+            <div class="names" th:text="${noteDto.title}"></div>
+            <div class="note-content" th:text="${noteDto.noteContent}">
+            </div>
+        </div>
+        <div th:if="${noteDto.bookMark}" class="fold">
+            <img src="/image/fullheart.png" alt="하트 아이콘" class="toggleBookMarkImportant"
+                 th:data-imp-noteId="${noteDto.noteId}">
+        </div>
+        <div th:unless="${noteDto.bookMark}" class="fold">
+            <img src="/image/emptyheart.png" alt="하트 아이콘" class="toggleBookMarkImportant"
+                 th:data-imp-noteId="${noteDto.noteId}">
+        </div>
+        <div class="checkbox">
+            <img src="https://img.icons8.com/windows/32/unchecked-checkbox.png" alt="checkbox image" onclick="toggleImageCheckbox(this)">
+            <input type="checkbox" name="noteIds" th:value="${noteDto.noteId}" style="display: none;" />
+        </div>
+        <div class="time" th:text="${#temporals.format(noteDto.createdDate, 'yyyy-MM-dd HH:mm')}"></div>
+    </div>
+    <hr>
+</div>
+    </form>
+</body>
+</html>

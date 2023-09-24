@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>톡썸 노트</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/Text.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* 로딩 스피너 스타일 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            display: none; /* 초기에는 숨김 */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+</head>
+<body id="body-pd" class="body-pd">
+
+
+<script>
+    $(document).ready(function() {
+        $('.nav__link').on('click', function() {
+            var contentId = $(this).attr('id');
+            var endpoint = "";
+            console.log(contentId);
+            if (contentId == "All") {
+                endpoint = "/mypageReload";
+            } else if (contentId == "Important") {
+                endpoint = "/bookMark";
+            } else if (contentId == "Trash"){
+                endpoint = "/myTrashList";
+            } else if (contentId == "search"){
+                endpoint = "/note/search";
+            }
+            else {
+                return;
+            }
+            var divId = null;
+            if(contentId == "All"){
+                divId = "innercontent0";
+            }
+            else if(contentId == "Important"){
+                divId = "innercontent1";
+            }
+            else if(contentId == "Trash"){
+                divId = "innercontent2"
+            }
+            else if(contentId == "search"){
+                divId = "innercontent0";
+            }
+            console.log(endpoint);
+
+            $.get(endpoint, function(data) {
+                console.log(data);
+                $("#" + divId).html(data);
+            });
+            if(contentId == "search"){
+                window.location.href = "/mypage";
+            }
+        });
+    });
+</script>
+<div class="containers">
+    <div id="divSearch">
+        <form action="/note/search" method="GET">
+            <input type="text" name="keyword" placeholder="노트 이름을 검색하세요." id="searchInput">
+            <button type="submit" id="searchIcon">
+                <img src="https://img.icons8.com/ios/50/search--v1.png" alt="Search Icon" class="sicon">
+            </button>
+            <style>
+                .search-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    margin: 0;
+                }
+            </style>
+        </form>
+    </div>
+    <div class="buttonclass">
+    <button class="btn-open-popup">
+        <ion-icon name="add-outline" class="nav__icon" role="img" aria-label="add outline"></ion-icon>
+        <span class="new_note">새 노트 만들기</span>
+    </button>
+        </div>
+</div>
+
+
+<div class="l-navbar expander" id="navbar">
+    <nav class="nav">
+        <div>
+            <div class="nav__brand">
+                <div class="nav__first">
+                    <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                    <div class="nav__profile">
+                        <img width="36" height="36" src="https://img.icons8.com/fluency/48/user-male-circle--v1.png"
+                             alt="user-male-circle--v1"/>
+                        <a href="#" class="nav__logo" th:text="${session.loginForm.name} + '님'"></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="loader" id="loader"></div>
+
+            <form th:action="@{/upload}" th:object="${uploadForm}" method="post" enctype="multipart/form-data">
+                <div class="modal">
+                    <div class="modal_body">
+                        <h5 class="modal-title">새 노트 만들기</h5>
+
+                        <div class="modal-footer">
+
+                            <div class="notenameinput">
+                                <div class="note-name">노트 제목</div>
+                                <input type="text" class="input-name" placeholder="노트 제목을 입력하세요." th:field="*{title}">
+                                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                            </div>
+
+
+                            <div class="upload">파일 업로드하기</div>
+                            <div class="upload-box">
+                                <div id="drop-file" class="drag-file">
+                                    <img src="https://img.icons8.com/ios/50/upload-to-cloud--v1.png" alt="파일 아이콘"
+                                         class="image">
+                                    <p class="message">내 PC에서 음성파일을 첨부하거나 끌어오세요.<br>
+                                        음성파일의 크기는 한 번에 최대 50MB까지 가능해요.</p>
+                                    <div class="message2">
+                                        <div class="message2">
+                                            <img src="https://img.icons8.com/ios/50/globe--v1.png" alt="파일 아이콘" class="image2">
+                                            인식 언어&nbsp;
+                                            <select class="language-select" th:field="*{language}">
+                                                <option value="ko-KR">한국어</option>
+                                                <option value="en-US">영어</option>
+                                                <option value="ja-JP">일본어</option>
+                                                <option value="cmn-Hans-CN">중국어</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div id="files" class="files">
+                                        <div class="file">
+                                            <div class="details">
+                                                <header class="header">
+                                                    <span class="name"></span>
+
+                                                </header>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label class="file-label" for="chooseFile">파일 첨부하기</label>
+                                </div>
+                            </div>
+
+                            <input class="file" id="chooseFile" type="file" th:field="*{audioFile}">
+
+                            <div class="inputlink">
+                                <div class="import">링크로 가져오기</div>
+
+                                <div class="link-upload-container">
+                                    <input type="text" class="input-text" placeholder="유튜브 링크 URL을 여기에 입력하세요." th:field="*{url}">
+                                    <button class="upload-btn" type="submit">Upload</button>
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-secondary btn-close-modal" th:action="@{/mypage}">X</button>
+                            <div class="loading-modal">
+                                <div class="loading-content">
+                                    <img src="/static/image/로딩움짤.gif" style="width:25vw;" alt="로딩중…">
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;잠시만요, 마법을 부리는 중이에요! 🪄✨<br>
+                                        곧 요약해서 보여드릴게요!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="nav__list">
+                <a href="#" class="nav__link active" id="All">
+                    <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">전체 노트</span>
+                </a>
+                <a href="#" class="nav__link" id="Important">
+                    <ion-icon name="star-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">중요 노트</span>
+                </a>
+                <a href="#" class="nav__link" id="Trash">
+                    <ion-icon name="trash-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">휴지통</span>
+                </a>
+            </div>
+        </div>
+        <div class="home" onclick="window.location.href='/'">
+            <img width="20" height="20" src="https://img.icons8.com/badges/48/home-buton.png" alt="home-buton"/>
+            홈으로 가기
+        </div>
+    </nav>
+</div>
+
+<div class="contentsnote">
+    <div class="content active" id="content0">
+        <div th:insert="/mypages/All" id="innercontent0"></div>
+    </div>
+    <div class="content" id="content1">
+        <div th:insert="/mypages/Important" id="innercontent1"></div>
+    </div>
+    <div class="content" id="content2">
+        <div th:insert="/mypages/Trash" id="innercontent2"></div>
+    </div>
+</div>
+
+<!-- IONICONS -->
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<!-- JS -->
+<script src="/js/Text.js"></script>
+</body>
+</html>
+    
