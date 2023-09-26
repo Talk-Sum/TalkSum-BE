@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="talksum.talksum.NoteServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-26T02:50:51" hostname="MacBook-Pro-2.local" time="0.472">
+  <properties/>
+  <testcase name="toggleTest()" classname="talksum.talksum.NoteServiceTest" time="0.472"/>
+  <system-out><![CDATA[Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+11:50:47.935 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [talksum.talksum.NoteServiceTest]: NoteServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:50:48.018 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration talksum.talksum.TalksumApplication for test class talksum.talksum.NoteServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.3)
+
+2023-09-26T11:50:48.272+09:00  INFO 52951 --- [    Test worker] talksum.talksum.NoteServiceTest          : Starting NoteServiceTest using Java 20.0.2 with PID 52951 (started by junhaa in /Users/junhaa/Downloads/talksummerge 2 3 3)
+2023-09-26T11:50:48.273+09:00  INFO 52951 --- [    Test worker] talksum.talksum.NoteServiceTest          : No active profile set, falling back to 1 default profile: "default"
+2023-09-26T11:50:48.789+09:00  INFO 52951 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-26T11:50:48.845+09:00  INFO 52951 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 2 JPA repository interfaces.
+2023-09-26T11:50:49.116+09:00  INFO 52951 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-26T11:50:49.136+09:00  INFO 52951 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-09-26T11:50:49.137+09:00  INFO 52951 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-26T11:50:49.186+09:00  INFO 52951 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-26T11:50:49.260+09:00  INFO 52951 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-09-26T11:50:49.268+09:00  INFO 52951 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-26T11:50:49.688+09:00  INFO 52951 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@73b0ed03
+2023-09-26T11:50:49.689+09:00  INFO 52951 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-26T11:50:49.916+09:00  INFO 52951 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-26T11:50:50.277+09:00  INFO 52951 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: alter table note modify column audio_text  LONGTEXT not null
+Hibernate: alter table note modify column created_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null
+Hibernate: alter table note modify column modified_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
+Hibernate: alter table note modify column note_content  LONGTEXT not null
+2023-09-26T11:50:50.362+09:00  INFO 52951 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-26T11:50:50.576+09:00  INFO 52951 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-09-26T11:50:51.135+09:00  WARN 52951 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-26T11:50:51.527+09:00  INFO 52951 --- [    Test worker] talksum.talksum.NoteServiceTest          : Started NoteServiceTest in 3.424 seconds (process running for 4.121)
+Hibernate: select n1_0.note_id,n1_0.audio_text,n1_0.author_id,a1_0.member_id,a1_0.login_id,a1_0.name,a1_0.password,n1_0.book_mark,n1_0.created_date,n1_0.is_trash,n1_0.modified_date,n1_0.note_content,n1_0.title from note n1_0 join member a1_0 on a1_0.login_id=n1_0.author_id where n1_0.note_id=?
+1. 중국 고위 관리들의 실종과 불안정한 상황이 계속되고 있다.
+2. 중국 전 외무장관이 사라진 이유는 아직 알려지지 않았지만, 외신에 따르면 미국인과의 사이에 아이를 낳았다는 소문이 있다.
+3. 중국 국방장관도 실종되었으며, 조사 중이라는 보도가 있다.
+4. 중국의 정치적 불안정은 국제사회에 큰 충격을 주고 있다.
+5. 중국의 안정성이 서구 민주주의보다 우월하다고 주장하는데, 이번 사태로 인해 중국의 안정성에 대한 의문이 제기되고 있다.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

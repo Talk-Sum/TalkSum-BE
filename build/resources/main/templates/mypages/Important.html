@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/Important.css">
+</head>
+<body>
+<script>
+
+
+    $(document).ready(function () {
+        $(".toggleBookMarkImportant").click(function () {
+            var noteId = this.getAttribute("data-imp-noteId");
+            var requestUrl = "/toggleBookMark/" + noteId;
+            console.log(requestUrl);
+            $.get(requestUrl);
+            toggleHeart(event);
+        });
+    });
+
+
+    function toggleImageCheckbox(element) {
+        // 체크박스 요소를 가져옵니다.
+        const checkbox = element.nextElementSibling;
+
+        // 체크박스의 상태를 토글합니다.
+        checkbox.checked = !checkbox.checked;
+
+        // 이미지의 소스를 업데이트합니다.
+        if (checkbox.checked) {
+            element.src = "https://img.icons8.com/windows/32/checked-checkbox.png"; // 체크된 상태의 이미지 URL
+        } else {
+            element.src = "https://img.icons8.com/windows/32/unchecked-checkbox.png"; // 체크되지 않은 상태의 이미지 URL
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(() => {
+            let messageElement = document.getElementById('message');
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
+        }, 1000);
+    });
+
+
+</script>
+<form action="/trash" th:object="${noteDto}" method="post">
+
+    <div class="alldelete">
+        <p class="allnote">중요 노트&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+        <button class="btn-open-popups" type="submit">
+            <ion-icon name="trash-outline" class="nav__icon"></ion-icon>
+            <span class="remove">노트 삭제하기</span>
+        </button>
+    </div>
+    <p th:if="${message}" th:text="${message}" id="message"></p>
+    <p th:unless="${message}" th:text="${message}" id="errorMessage"></p>
+<div class="row">
+    <div class="name">이름</div>
+    <div class="loca">즐겨찾기</div>
+    <div class="select">파일 선택</div>
+    <div class="info">마지막 수정 일자</div>
+</div>
+<hr>
+<div class="note-list" th:each="noteDto : ${noteDtoList}">
+    <div class="rows">
+        <img src="https://img.icons8.com/nolan/64/microphone.png" alt="마이크 아이콘" class="image">
+        <a th:href="@{/page(noteId=${noteDto.noteId})}" target="_blank" class="notename">
+            <div class="names" th:text="${noteDto.title}"></div>
+            <div class="note-content" th:text="${noteDto.noteContent}">
+            </div>
+        </a>
+        <div th:if="${noteDto.bookMark}" class="fold">
+            <img src="/image/fullheart.png" alt="하트 아이콘" class="toggleBookMarkImportant"
+                 th:data-imp-noteId="${noteDto.noteId}">
+        </div>
+        <div th:unless="${noteDto.bookMark}" class="fold">
+            <img src="/image/emptyheart.png" alt="하트 아이콘" class="toggleBookMarkImportant"
+                 th:data-imp-noteId="${noteDto.noteId}">
+        </div>
+        <div class="checkbox">
+            <img src="https://img.icons8.com/windows/32/unchecked-checkbox.png" alt="checkbox image" onclick="toggleImageCheckbox(this)">
+            <input type="checkbox" name="noteIds" th:value="${noteDto.noteId}" style="display: none;" />
+        </div>
+        <div class="time" th:text="${#temporals.format(noteDto.createdDate, 'yyyy-MM-dd HH:mm')}"></div>
+    </div>
+    <hr>
+</div>
+    </form>
+<div class="pagination">
+    <!--<button class="prev">⬅</button>-->
+    <span th:each="pageNum : ${pageList}" th:inline="text">
+        <a th:href="@{'/mypage?page=' + ${pageNum}}">[[${pageNum}]]</a>
+    </span>
+    <!--<button class="next">➡</button>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* VARIABLES CSS */
+:root {
+    --nav--width: 92px;
+
+    /* Colores */
+    --first-color: #f2f2f2;
+    --bg-color: #Fafbfc;
+    --sub-color: #b6cefc;
+    --white-color: #495057;
+
+    /* Fuente y tipografia */
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    /* z index */
+    --z-fixed: 100;
+}
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    position: absolute;
+    top: 700px;
+    left: 90px;
+    width: 100%;
+}
+/* BASE */
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+*{
+    font-family: 'Pretendard';
+}
+
+.allnote{
+    font-size:1.5rem;
+}
+
+.row {
+    margin-top:1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;  /* 아이템 간의 간격 추가 */
+}
+
+.name {
+    margin-left:0.8rem;
+    flex: 3.25;
+    text-align:left;
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.loca{
+    flex: 2;
+    font-size: 0.9rem;
+    color: gray;
+    text-align: right;
+}
+
+.select{
+    flex: 1.1;
+    font-size: 0.9rem;
+    color: gray;
+    text-align: right;
+    margin-right: 2.5vw;
+}
+
+.checkbox{
+    margin-right:0.5vw;
+}
+
+.location{
+    flex: 2;
+    font-size: 0.9rem;
+    color: gray;
+    text-align: center;
+    margin-left:1vw;
+}
+
+.info {
+    flex: 2;
+    font-size: 0.9rem;
+    color: gray;
+    text-align: right;
+    margin-right: 0.8rem;
+}
+
+
+
+
+
+
+/* 노트 리스트 스타일 */
+
+
+.rows{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.notename {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.names {
+    flex: 1;
+    text-align:left;
+    font-weight:600;
+}
+
+.fold {
+    flex: 2;
+    text-align: center;
+    font-weight:600;
+}
+
+.time{
+    flex: 2;
+    text-align: right;
+    font-weight:600;
+}
+
+
+
+/* 가로선 스타일 */
+hr {
+    margin-top: 0.5rem;
+    border: none;
+    border-top: 1px solid lightgray;
+}
+
+.note-content {
+    color:gray;
+}
+
+.image{
+    width:3rem;
+}
